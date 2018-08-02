@@ -6,10 +6,10 @@
 //  Copyright © 2017年 wei.zhang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <WeexSDK/WeexSDK.h>
 
-@interface UIDevice (DeviceIDByKeychainThisDeviceOnly)
+@interface DuoDeviceIdentifier : NSObject<WXModuleProtocol>
 
-+ (NSString*)identifierByKeychain;
 
 @end

@@ -6,12 +6,14 @@
 //  Copyright © 2017年 wei.zhang. All rights reserved.
 //
 
-#import "UIDevice+DeviceIDByKeychainThisDeviceOnly.h"
+#import "DuoDeviceIdentifier.h"
+#import <WeexPluginLoader/WeexPluginLoader.h>
 #import <Security/Security.h>
-
-@implementation UIDevice (DeviceIDByKeychainThisDeviceOnly)
-
-+ (NSString*)identifierByKeychain;
+WX_PlUGIN_EXPORT_MODULE(identifier, DuoDeviceIdentifier)
+@implementation DuoDeviceIdentifier
+@synthesize weexInstance;
+WX_EXPORT_METHOD_SYNC(@selector(identifierByKeychain))
+-(NSString *)identifierByKeychain
 {
     //该类方法没有线程保护，所以可能因异步而导致创建出不同的设备唯一ID，故而增加此线程锁！
     @synchronized ([NSNotificationCenter defaultCenter])
@@ -69,6 +71,7 @@
                 NSLog(@"通过钥匙串创建设备唯一ID不成功！");
             }
         }
+        
         return recommendDeviceIdentifier;
     }
 }
